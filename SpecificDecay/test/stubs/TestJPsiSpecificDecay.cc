@@ -106,8 +106,8 @@ void TestJPsiSpecificDecay::analyze( const edm::Event& ev, const edm::EventSetup
   BPHOniaToMuMuBuilder* onia = 0;
 
   onia = new BPHOniaToMuMuBuilder( es,
-                      BPHRecoBuilder::createCollection( patMuon, "cfmig" ),
-                      BPHRecoBuilder::createCollection( patMuon, "cfmig" ) );
+                      BPHRecoBuilder::createCollection( pcCands, "cfmig" ),
+                      BPHRecoBuilder::createCollection( pcCands, "cfmig" ) );
 
   vector<BPHPlusMinusConstCandPtr> lFull = onia->build();
   //int iFull;

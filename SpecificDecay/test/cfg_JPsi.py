@@ -25,7 +25,7 @@ process.source = cms.Source("PoolSource",fileNames = cms.untracked.vstring(
 #
 ### use this to access the nearest copy of the input file, querying the catalog
     #'/store/mc/RunIISpring15DR74/BsToJpsiPhi_BMuonFilter_TuneCUEP8M1_13TeV-pythia8-evtgen/MINIAODSIM/Asympt25nsRaw_MCRUN2_74_V9-v1/50000/0E685515-8661-E511-8274-00259073E3B6.root'
-    '/store/mc/RunIISpring16MiniAODv2/TT_TuneCUETP8M1_13TeV-powheg-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext3-v2/70000/FE36D041-D140-E611-BD71-001D0967DDDC.root'
+    '/store/mc/RunIISpring16MiniAODv2/TT_TuneCUETP8M1_13TeV-powheg-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext3-v2/70000/00287FF4-0E40-E611-8D06-00266CFE78EC.root'
 #
 ### use this to access the input file if by any reason you want to specify 
 ### the data server
