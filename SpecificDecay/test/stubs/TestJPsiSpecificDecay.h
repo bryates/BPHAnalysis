@@ -37,11 +37,13 @@ class TestJPsiSpecificDecay:
 
  private:
 
+  std::string patMuonLabel;
   std::string pcCandsLabel;
 
   // token wrappers to allow running both on "old" and "new" CMSSW versions
   //BPHTokenWrapper< std::vector<pat::PackedCandidateCollection> > pcCandsToken;
   BPHTokenWrapper< std::vector<BPHTrackReference::candidate> > pcCandsToken;
+  BPHTokenWrapper< pat::MuonCollection> patMuonToken;
 
   std::string outDump;
   std::ostream* fPtr;

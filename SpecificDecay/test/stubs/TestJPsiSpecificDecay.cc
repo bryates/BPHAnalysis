@@ -50,8 +50,11 @@ using namespace std;
 TestJPsiSpecificDecay::TestJPsiSpecificDecay( const edm::ParameterSet& ps ) {
 
   SET_LABEL( pcCandsLabel, ps );
+  SET_LABEL( patMuonLabel, ps );
+
   //consume< vector<pat::PackedCandidateCollection> >( pcCandsToken, pcCandsLabel );
   consume< vector<BPHTrackReference::candidate> >( pcCandsToken, pcCandsLabel );
+  consume< pat::MuonCollection>( patMuonToken, patMuonLabel );
 
   SET_LABEL( outDump, ps );
   if ( outDump == "" ) fPtr = &cout;
@@ -65,6 +68,7 @@ TestJPsiSpecificDecay::~TestJPsiSpecificDecay() {
 void TestJPsiSpecificDecay::fillDescriptions(
                            edm::ConfigurationDescriptions& descriptions ) {
    edm::ParameterSetDescription desc;
+   desc.add<string>( "patMuonLabel", "" );
    desc.add<string>( "pcCandsLabel", "" );
    desc.add<string>( "outDump", "dump.txt" );
    descriptions.add( "testJPsiSpecificDecay", desc );
@@ -90,6 +94,8 @@ void TestJPsiSpecificDecay::analyze( const edm::Event& ev, const edm::EventSetup
   edm::Handle< vector<BPHTrackReference::candidate> > pcCands;
   pcCandsToken.get( ev, pcCands );
   nrc = pcCands->size();
+  edm::Handle<pat::MuonCollection> patMuon;
+  patMuonToken.get( ev, patMuon );
 
   // get muons from pat::CompositeCandidate objects describing onia;
   // muons from all composite objects are copied to an unique std::vector
@@ -100,8 +106,8 @@ void TestJPsiSpecificDecay::analyze( const edm::Event& ev, const edm::EventSetup
   BPHOniaToMuMuBuilder* onia = 0;
 
   onia = new BPHOniaToMuMuBuilder( es,
-                      BPHRecoBuilder::createCollection( pcCands, "cfmig" ),
-                      BPHRecoBuilder::createCollection( pcCands, "cfmig" ) );
+                      BPHRecoBuilder::createCollection( patMuon, "cfmig" ),
+                      BPHRecoBuilder::createCollection( patMuon, "cfmig" ) );
 
   vector<BPHPlusMinusConstCandPtr> lFull = onia->build();
   //int iFull;

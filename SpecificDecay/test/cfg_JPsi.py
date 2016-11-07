@@ -39,7 +39,7 @@ from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc', '')
 
 process.testJPsiSpecificDecay = cms.EDAnalyzer('TestJPsiSpecificDecay',
-    #patMuonLabel = cms.string('slimmedMuons::PAT'),
+    patMuonLabel = cms.string('slimmedMuons::PAT'),
     pcCandsLabel = cms.string('packedPFCandidates::PAT'),
     outDump = cms.string('dump_JPsi.txt'),
     #outHist = cms.string('hist_mini.root')
