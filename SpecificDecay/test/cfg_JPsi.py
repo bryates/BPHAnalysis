@@ -17,14 +17,6 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 process.load("TrackingTools/TransientTrack/TransientTrackBuilder_cfi")
 
-process.CandidateSelectedTracks = cms.EDProducer( "ConcreteChargedCandidateProducer",
-                src=cms.InputTag("oniaSelectedTracks::RECO"),
-                particleType=cms.string('pi+')
-)
-
-from PhysicsTools.PatAlgos.producersLayer1.genericParticleProducer_cfi import patGenericParticles
-process.patSelectedTracks = patGenericParticles.clone(src=cms.InputTag("CandidateSelectedTracks"))
-
 process.MessageLogger.cerr.FwkReport.reportEvery = 100
 process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(True) )
 process.options.allowUnscheduled = cms.untracked.bool(True)
@@ -32,27 +24,28 @@ process.options.allowUnscheduled = cms.untracked.bool(True)
 process.source = cms.Source("PoolSource",fileNames = cms.untracked.vstring(
 #
 ### use this to access the nearest copy of the input file, querying the catalog
+    #'/store/mc/RunIISpring15DR74/BsToJpsiPhi_BMuonFilter_TuneCUEP8M1_13TeV-pythia8-evtgen/MINIAODSIM/Asympt25nsRaw_MCRUN2_74_V9-v1/50000/0E685515-8661-E511-8274-00259073E3B6.root'
+    '/store/mc/RunIISpring16MiniAODv2/TT_TuneCUETP8M1_13TeV-powheg-pythia8/MINIAODSIM/PUSpring16_80X_mcRun2_asymptotic_2016_miniAODv2_v0_ext3-v2/70000/FE36D041-D140-E611-BD71-001D0967DDDC.root'
 #
-    '/store/data/Run2016E/Charmonium/USER/BPHSkim-23Sep2016-v1/70000/040BC7DC-9B91-E611-9AEE-FA163EA1C877.root'
 ### use this to access the input file if by any reason you want to specify 
 ### the data server
-#    'root://xrootd-cms.infn.it//store/data/Run2016E/Charmonium/USER/BPHSkim-PromptReco-v2/000/276/831/00000/00FD1519-714D-E611-B686-FA163E321AE0.root'
+#    'root://xrootd-cms.infn.it//store/mc/RunIISpring15DR74/BsToJpsiPhi_BMuonFilter_TuneCUEP8M1_13TeV-pythia8-evtgen/MINIAODSIM/Asympt25nsRaw_MCRUN2_74_V9-v1/50000/0E685515-8661-E511-8274-00259073E3B6.root'
 #
 ### use this to access an input file locally available
-#    'file:/...complete_file_path.../XXXX.root'
+#    'file:/...complete_file_path.../0E685515-8661-E511-8274-00259073E3B6.root'
 ))
 
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc', '')
 
-process.testBPHSpecificDecay = cms.EDAnalyzer('TestBPHSpecificDecay',
-    gpCandsLabel = cms.string('patSelectedTracks'),
-    ccCandsLabel = cms.string('onia2MuMuPAT::RECO'),
-    outDump = cms.string('dump_skim.txt'),
-    outHist = cms.string('hist_skim.root')
+process.testJPsiSpecificDecay = cms.EDAnalyzer('TestJPsiSpecificDecay',
+    #patMuonLabel = cms.string('slimmedMuons::PAT'),
+    pcCandsLabel = cms.string('packedPFCandidates::PAT'),
+    outDump = cms.string('dump_JPsi.txt'),
+    #outHist = cms.string('hist_mini.root')
 )
 
 process.p = cms.Path(
-    process.testBPHSpecificDecay
+    process.testJPsiSpecificDecay
 )
 
